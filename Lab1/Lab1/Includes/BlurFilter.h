@@ -7,6 +7,7 @@ class BlurFilter : public MatrixFilter
 {
 public:
 	BlurFilter();
+	~BlurFilter() {};
 };
 
 #endif

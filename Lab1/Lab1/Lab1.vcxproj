@@ -84,7 +84,11 @@
     <ClCompile Include="Includes\GaussianBlurFilter.cpp" />
     <ClCompile Include="Includes\InvertFilter.cpp" />
     <ClCompile Include="Includes\MatrixFilter.cpp" />
+    <ClCompile Include="Includes\MirrorFilter.cpp" />
+    <ClCompile Include="Includes\MotionBlurFilter.cpp" />
+    <ClCompile Include="Includes\SharpnessFilter.cpp" />
     <ClCompile Include="Includes\Utils.h" />
+    <ClCompile Include="Includes\WavesFilter.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +97,10 @@
     <ClInclude Include="Includes\GaussianBlurFilter.h" />
     <ClInclude Include="Includes\InvertFilter.h" />
     <ClInclude Include="Includes\MatrixFilter.h" />
+    <ClInclude Include="Includes\MirrorFilter.h" />
+    <ClInclude Include="Includes\MotionBlurFilter.h" />
+    <ClInclude Include="Includes\SharpnessFilter.h" />
+    <ClInclude Include="Includes\WavesFilter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

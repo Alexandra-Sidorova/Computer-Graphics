@@ -4,6 +4,10 @@
 #include "Includes/InvertFilter.h"
 #include "Includes/BlurFilter.h"
 #include "Includes/GaussianBlurFilter.h"
+#include "Includes/WavesFilter.h"
+#include "Includes/MirrorFilter.h"
+#include "Includes/SharpnessFilter.h"
+#include "Includes/MotionBlurFilter.h"
 
 using namespace std;
 
@@ -30,4 +34,24 @@ void main(int argc, char *argv[])
 	GaussianBlurFilter* gaussianBlur = new GaussianBlurFilter();
 	QImage gaussianBlurImage = gaussianBlur->calculateNewImagePixMap(photo, 3);
 	gaussianBlurImage.save("GaussianBlur.PNG");
+
+	WavesFilter* wavesHorizontal = new WavesFilter();
+	QImage wavesHorizontalImage = wavesHorizontal->calculateNewImagePixMap(photo, 0);
+	wavesHorizontalImage.save("WavesHorizontal.PNG");
+
+	WavesFilter* wavesVertical = new WavesFilter(0);
+	QImage wavesVerticalImage = wavesVertical->calculateNewImagePixMap(photo, 0);
+	wavesVerticalImage.save("WavesVertical.PNG");
+
+	MirrorFilter* mirror = new MirrorFilter();
+	QImage mirrorImage = mirror->calculateNewImagePixMap(photo, 0);
+	mirrorImage.save("Mirror.PNG");
+
+	SharpnessFilter* sharpness = new SharpnessFilter();
+	QImage sharpnessImage = sharpness->calculateNewImagePixMap(photo, 1);
+	sharpnessImage.save("Sharpness.PNG");
+
+	MotionBlurFilter* motionBlur = new MotionBlurFilter();
+	QImage MotionBlurImage = motionBlur->calculateNewImagePixMap(photo, 1);
+	MotionBlurImage.save("MotionBlur.PNG");
 }

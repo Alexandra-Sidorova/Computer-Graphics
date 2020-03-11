@@ -9,7 +9,7 @@ public:
 	Filter() {};
 	~Filter() {};
 
-	virtual QImage calculateNewImagePixMap(const QImage&, int) = 0;
+	virtual QImage calculateNewImagePixMap(const QImage& _photo, int _mRadius) = 0;
 };
 
 #endif

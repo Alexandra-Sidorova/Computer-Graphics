@@ -8,6 +8,14 @@
 #include "Includes/MirrorFilter.h"
 #include "Includes/SharpnessFilter.h"
 #include "Includes/MotionBlurFilter.h"
+#include "Includes/MedianIntensityFilter.h"
+#include "Includes/GrayScaleFilter.h"
+#include "Includes/SepiaFilter.h"
+#include "Includes/BrightnessFilter.h"
+#include "Includes/SharpnessFilter_2.h"
+#include "Includes/SobelYFilter.h"
+#include "Includes/SobelXFilter.h"
+#include "Includes/GrayWorldFilter.h"
 
 using namespace std;
 
@@ -51,7 +59,39 @@ void main(int argc, char *argv[])
 	QImage sharpnessImage = sharpness->calculateNewImagePixMap(photo, 1);
 	sharpnessImage.save("Sharpness.PNG");
 
+	SharpnessFilter_2* sharpness_2 = new SharpnessFilter_2();
+	QImage sharpnessImage_2 = sharpness_2->calculateNewImagePixMap(photo, 1);
+	sharpnessImage_2.save("Sharpness_2.PNG");
+
 	MotionBlurFilter* motionBlur = new MotionBlurFilter();
 	QImage MotionBlurImage = motionBlur->calculateNewImagePixMap(photo, 1);
 	MotionBlurImage.save("MotionBlur.PNG");
+
+	MedianIntensityFilter* medianIntensity = new MedianIntensityFilter();
+	QImage medianIntensityImage = medianIntensity->calculateNewImagePixMap(photo, 1);
+	medianIntensityImage.save("MedianIntensity.PNG");
+
+	GrayScaleFilter* grayScale = new GrayScaleFilter();
+	QImage grayScaleImage = grayScale->calculateNewImagePixMap(photo, 0);
+	grayScaleImage.save("GrayScale.PNG");
+
+	SepiaFilter* sepia = new SepiaFilter();
+	QImage sepiaImage = sepia->calculateNewImagePixMap(photo, 0);
+	sepiaImage.save("Sepia.PNG");
+
+	BrightnessFilter* brightness = new BrightnessFilter();
+	QImage brightnessImage = brightness->calculateNewImagePixMap(photo, 0);
+	brightnessImage.save("Brightness.PNG");
+
+	SobelYFilter* sobelY = new SobelYFilter();
+	QImage sobelYImage = sobelY->calculateNewImagePixMap(photo, 1);
+	sobelYImage.save("SobelY.PNG");
+
+	SobelXFilter* sobelX = new SobelXFilter();
+	QImage sobelXImage = sobelX->calculateNewImagePixMap(photo, 1);
+	sobelXImage.save("SobelX.PNG");
+
+	GrayWorldFilter* grayWorld = new GrayWorldFilter();
+	QImage grayWorldImage = grayWorld->calculateNewImagePixMap(photo, 0);
+	grayWorldImage.save("GrayWorld.PNG");
 }

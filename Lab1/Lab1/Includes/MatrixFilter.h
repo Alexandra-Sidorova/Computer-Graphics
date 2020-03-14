@@ -5,10 +5,11 @@
 
 class MatrixFilter : public Filter
 {
-public:
+protected:
 	float* vector;
 	int mRadius;
 
+public:
 	MatrixFilter(int _radius = 1) : mRadius(_radius) {};
 	~MatrixFilter() {};
 

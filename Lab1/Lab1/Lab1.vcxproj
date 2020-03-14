@@ -82,14 +82,17 @@
   <ItemGroup>
     <ClCompile Include="Includes\BlurFilter.cpp" />
     <ClCompile Include="Includes\BrightnessFilter.cpp" />
+    <ClCompile Include="Includes\DilationMorphology.cpp" />
     <ClCompile Include="Includes\GaussianBlurFilter.cpp" />
     <ClCompile Include="Includes\GrayScaleFilter.cpp" />
     <ClCompile Include="Includes\GrayWorldFilter.cpp" />
+    <ClCompile Include="Includes\HistogramLinearStretchFilter.cpp" />
     <ClCompile Include="Includes\Intensity.cpp" />
     <ClCompile Include="Includes\InvertFilter.cpp" />
     <ClCompile Include="Includes\MatrixFilter.cpp" />
     <ClCompile Include="Includes\MedianIntensityFilter.cpp" />
     <ClCompile Include="Includes\MirrorFilter.cpp" />
+    <ClCompile Include="Includes\Morphology.cpp" />
     <ClCompile Include="Includes\MotionBlurFilter.cpp" />
     <ClCompile Include="Includes\SepiaFilter.cpp" />
     <ClCompile Include="Includes\SharpnessFilter.cpp" />
@@ -103,15 +106,18 @@
   <ItemGroup>
     <ClInclude Include="Includes\BlurFilter.h" />
     <ClInclude Include="Includes\BrightnessFilter.h" />
+    <ClInclude Include="Includes\DilationMorphology.h" />
     <ClInclude Include="Includes\Filter.h" />
     <ClInclude Include="Includes\GaussianBlurFilter.h" />
     <ClInclude Include="Includes\GrayScaleFilter.h" />
     <ClInclude Include="Includes\GrayWorldFilter.h" />
+    <ClInclude Include="Includes\HistogramLinearStretchFilter.h" />
     <ClInclude Include="Includes\Intensity.h" />
     <ClInclude Include="Includes\InvertFilter.h" />
     <ClInclude Include="Includes\MatrixFilter.h" />
     <ClInclude Include="Includes\MedianIntensityFilter.h" />
     <ClInclude Include="Includes\MirrorFilter.h" />
+    <ClInclude Include="Includes\Morphology.h" />
     <ClInclude Include="Includes\MotionBlurFilter.h" />
     <ClInclude Include="Includes\SepiaFilter.h" />
     <ClInclude Include="Includes\SharpnessFilter_2.h" />

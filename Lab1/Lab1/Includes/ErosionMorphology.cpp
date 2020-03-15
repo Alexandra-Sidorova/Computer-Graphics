@@ -1,12 +1,13 @@
 #include "ErosionMorphology.h"
+#include "Utils.h"
 
 QImage ErosionMorphology::calculateNewImagePixMap(const QImage& _photo, const Mask& _mask)
 {
 	QImage result(_photo);
 
-	for (int x = _mask.GetWidth() / 2; x < (_photo.width() - _mask.GetWidth() / 2); x++)
+	for (int x = 0; x < _photo.width(); x++)
 	{
-		for (int y = _mask.GetHeight() / 2; y < (_photo.height() - _mask.GetHeight() / 2); y++)
+		for (int y = 0; y < _photo.height(); y++)
 		{
 			int minR = 255;
 			int minG = 255;
@@ -15,7 +16,8 @@ QImage ErosionMorphology::calculateNewImagePixMap(const QImage& _photo, const Ma
 			for (int i = -_mask.GetWidth() / 2; i < _mask.GetWidth() / 2; i++)
 				for (int j = -_mask.GetHeight() / 2; j < _mask.GetHeight() / 2; j++)
 				{
-					QColor color = _photo.pixelColor(x + i, y + j);
+					QColor color = _photo.pixelColor(Clamp<int>(x + i, _photo.width() - 1, 0),
+						Clamp<int>(y + j, _photo.height() - 1, 0));
 
 					if (_mask.GetMask()[i * _mask.GetWidth() + j] && (color.red() < minR))
 						minR = color.red();

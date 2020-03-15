@@ -45,7 +45,7 @@ void main(int argc, char *argv[])
 	photo.save("Resources/Starting.PNG");
 	cout << "Photo is saving as Resources/Starting.PNG" << endl << endl;
 
-	cout << "Inverting Filter is loading..." << endl;
+	/*cout << "Inverting Filter is loading..." << endl;
 	InvertFilter* invert = new InvertFilter();
 	QImage invertImage = invert->calculateNewImagePixMap(photo, 0);
 	invertImage.save("Resources/Invert.PNG");
@@ -145,7 +145,7 @@ void main(int argc, char *argv[])
 	HistogramLinearStretchFilter* histogramLinearScretch = new HistogramLinearStretchFilter();
 	QImage histogramLinearScretchImage = histogramLinearScretch->calculateNewImagePixMap(photo, 0);
 	histogramLinearScretchImage.save("Resources/HistogramLinearStretchFilter.PNG");
-	cout << "Photo is saving as Resources/HistogramLinearStretchFilter.PNG" << endl << endl;
+	cout << "Photo is saving as Resources/HistogramLinearStretchFilter.PNG" << endl << endl;*/
 
 	cout << "########## TESTING MORPHOLOGY PROGRAM ##########" << endl << endl;
 

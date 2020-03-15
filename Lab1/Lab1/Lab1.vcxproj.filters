@@ -78,13 +78,25 @@
     <ClCompile Include="Includes\GrayWorldFilter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Includes\Morphology.cpp">
+    <ClCompile Include="Includes\HistogramLinearStretchFilter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Includes\Mask.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Includes\DilationMorphology.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Includes\HistogramLinearStretchFilter.cpp">
+    <ClCompile Include="Includes\ErosionMorphology.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Includes\OpeningMorphology.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Includes\ClosingMorphology.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Includes\TopHatMorphology.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -146,10 +158,25 @@
     <ClInclude Include="Includes\Morphology.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Includes\HistogramLinearStretchFilter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Mask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Includes\DilationMorphology.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Includes\HistogramLinearStretchFilter.h">
+    <ClInclude Include="Includes\ErosionMorphology.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\OpeningMorphology.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\ClosingMorphology.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\TopHatMorphology.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

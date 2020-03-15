@@ -1,17 +1,19 @@
 #ifndef _MORPHOLOGY_H_
 #define _MORPHOLOGY_H_
 
+#include <qimage.h>
+
+#include "Mask.h"
+
 class Morphology
 {
-protected:
-	bool* mask;
-	int weight;
-	int height;
-
 public:
-	Morphology();
-	Morphology(bool* _mask, int _height, int _weight);
+	Morphology() {};
 	~Morphology() {};
+
+	virtual QImage calculateNewImagePixMap(const QImage& _photo, const Mask& _mask) = 0;
+
+	QImage TopHat(const QImage& _photo);
 };
 
 #endif

@@ -22,6 +22,8 @@ QColor MedianIntensityFilter::calculateNewPixelColor(QImage _photo, int _x, int 
 	idx = intens[size * size / 2].x;
 	idy = intens[size * size / 2].y;
 
+	delete[] intens;
+
 	return _photo.pixelColor(idx, idy);
 };
 

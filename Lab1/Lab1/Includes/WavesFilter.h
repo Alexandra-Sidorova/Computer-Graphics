@@ -12,8 +12,8 @@ public:
 	WavesFilter(bool _horizontal = 1, int _length = 20);
 	~WavesFilter() {};
 
-	QImage calculateNewImagePixMap(const QImage&, int);
-	QColor calculateNewPixelColor(QImage, int, int, int);
+	QImage calculateNewImagePixMap(const QImage& _photo, int _mRadius);
+	QColor calculateNewPixelColor(QImage _photo, int _x, int _y, int _mRadius);
 };
 
 #endif

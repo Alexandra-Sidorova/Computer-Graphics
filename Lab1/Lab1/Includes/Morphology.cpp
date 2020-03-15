@@ -1,17 +1,27 @@
 #include "Morphology.h"
+#include "Utils.h"
 
-Morphology::Morphology()
+
+QImage Morphology::Closing(const QImage& _photo)
 {
-	height = weight = 3;
-	
-	mask = new bool[height * weight];
-	for (int i = 0; i < height * weight; i++)
-		mask[i] = true;
+	return Erosion(Dilation(_photo));
 };
 
-Morphology::Morphology(bool* _mask, int _height, int _weight) : height(_height), weight(_weight)
+QImage Morphology::TopHat(const QImage& _photo)
 {
-	mask = new bool[height * weight];
-	for (int i = 0; i < height * weight; i++)
-		mask[i] = _mask[i];
+	QImage result(_photo);
+	QImage openingPhoto = Opening(_photo);
+
+	for(int x = 0; x < _photo.width(); x++)
+		for (int y = 0; y < _photo.height(); y++)
+		{
+			QColor color = result.pixelColor(x, y);
+			QColor openColor = openingPhoto.pixelColor(x, y);
+
+			result.setPixelColor(x, y, QColor(Clamp(color.red() - openColor.red(), 255, 0),
+											  Clamp(color.green() - openColor.green(), 255, 0),
+											  Clamp(color.blue() - openColor.blue(), 255, 0)));
+		}
+
+	return result;
 };

@@ -1,6 +1,13 @@
 #include "MatrixFilter.h"
 #include "Utils.h"
 
+MatrixFilter::~MatrixFilter()
+{
+	mRadius = 0;
+	delete[] vector;
+};
+//-------------------------------------------------
+
 QColor MatrixFilter::calculateNewPixelColor(QImage _photo, int _x, int _y, int _radius)
 {
 	int returnR = 0;

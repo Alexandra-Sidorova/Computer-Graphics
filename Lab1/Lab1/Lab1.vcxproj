@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{180B1109-E09A-4378-A63C-4D9117F735C9}</ProjectGuid>
+    <Keyword>QtVS_v302</Keyword>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <QtInstall>msvc2017_64</QtInstall>
+    <QtModules>core</QtModules>
+  </PropertyGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <QtInstall>msvc2017_64</QtInstall>
+    <QtModules>core</QtModules>
+  </PropertyGroup>
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat />
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Includes\BlurFilter.cpp" />
+    <ClCompile Include="Includes\BrightnessFilter.cpp" />
+    <ClCompile Include="Includes\ClosingMorphology.cpp" />
+    <ClCompile Include="Includes\DilationMorphology.cpp" />
+    <ClCompile Include="Includes\ErosionMorphology.cpp" />
+    <ClCompile Include="Includes\GammaCorrectionFilter.cpp" />
+    <ClCompile Include="Includes\GaussianBlurFilter.cpp" />
+    <ClCompile Include="Includes\GrayScaleFilter.cpp" />
+    <ClCompile Include="Includes\GrayWorldFilter.cpp" />
+    <ClCompile Include="Includes\HistogramLinearStretchFilter.cpp" />
+    <ClCompile Include="Includes\Intensity.cpp" />
+    <ClCompile Include="Includes\InvertFilter.cpp" />
+    <ClCompile Include="Includes\Mask.cpp" />
+    <ClCompile Include="Includes\MatrixFilter.cpp" />
+    <ClCompile Include="Includes\MedianIntensityFilter.cpp" />
+    <ClCompile Include="Includes\MirrorFilter.cpp" />
+    <ClCompile Include="Includes\MotionBlurFilter.cpp" />
+    <ClCompile Include="Includes\OpeningMorphology.cpp" />
+    <ClCompile Include="Includes\SepiaFilter.cpp" />
+    <ClCompile Include="Includes\SharpnessFilter.cpp" />
+    <ClCompile Include="Includes\SharpnessFilter_2.cpp" />
+    <ClCompile Include="Includes\SobelXFilter.cpp" />
+    <ClCompile Include="Includes\SobelYFilter.cpp" />
+    <ClCompile Include="Includes\TopHatMorphology.cpp" />
+    <ClCompile Include="Includes\Utils.h" />
+    <ClCompile Include="Includes\WavesFilter.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Includes\BlurFilter.h" />
+    <ClInclude Include="Includes\BrightnessFilter.h" />
+    <ClInclude Include="Includes\ClosingMorphology.h" />
+    <ClInclude Include="Includes\DilationMorphology.h" />
+    <ClInclude Include="Includes\ErosionMorphology.h" />
+    <ClInclude Include="Includes\Filter.h" />
+    <ClInclude Include="Includes\GammaCorrectionFilter.h" />
+    <ClInclude Include="Includes\GaussianBlurFilter.h" />
+    <ClInclude Include="Includes\GrayScaleFilter.h" />
+    <ClInclude Include="Includes\GrayWorldFilter.h" />
+    <ClInclude Include="Includes\HistogramLinearStretchFilter.h" />
+    <ClInclude Include="Includes\Intensity.h" />
+    <ClInclude Include="Includes\InvertFilter.h" />
+    <ClInclude Include="Includes\Mask.h" />
+    <ClInclude Include="Includes\MatrixFilter.h" />
+    <ClInclude Include="Includes\MedianIntensityFilter.h" />
+    <ClInclude Include="Includes\MirrorFilter.h" />
+    <ClInclude Include="Includes\Morphology.h" />
+    <ClInclude Include="Includes\MotionBlurFilter.h" />
+    <ClInclude Include="Includes\OpeningMorphology.h" />
+    <ClInclude Include="Includes\SepiaFilter.h" />
+    <ClInclude Include="Includes\SharpnessFilter_2.h" />
+    <ClInclude Include="Includes\SharpnessFilter.h" />
+    <ClInclude Include="Includes\SobelXFilter.h" />
+    <ClInclude Include="Includes\SobelYFilter.h" />
+    <ClInclude Include="Includes\TopHatMorphology.h" />
+    <ClInclude Include="Includes\WavesFilter.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties MocDir=".\GeneratedFiles\$(ConfigurationName)" UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" lupdateOptions="" lupdateOnBuild="0" lreleaseOptions="" MocOptions="" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

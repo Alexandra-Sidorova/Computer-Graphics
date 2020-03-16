@@ -99,6 +99,9 @@
     <ClCompile Include="Includes\TopHatMorphology.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Includes\GammaCorrectionFilter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Includes\Filter.h">
@@ -177,6 +180,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Includes\TopHatMorphology.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\GammaCorrectionFilter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

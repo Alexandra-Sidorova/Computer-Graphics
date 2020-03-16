@@ -15,12 +15,11 @@ void GaussianBlurFilter::createGaussianKernel(int _radius, int _sigma)
 	for(int i = -_radius; i <= _radius; i++)
 		for (int j = -_radius; j <= _radius; j++)
 		{
-			int idx = (i + _radius) * size + (j + _radius);
-			vector[idx] = exp(-(i * i + j * j) / (_sigma * _sigma));
-			norm += vector[idx];
+			vector[(i + _radius) * size + (j + _radius)] = (float)(exp((-1) * (i * i + j * j) / (_sigma * _sigma)));
+			norm += vector[(i + _radius) * size + (j + _radius)];
 		}
 
 	for (int i = 0; i < size; i++)
 		for (int j = 0; j < size; j++)
-			vector[i * size + j] /= norm;
+			vector[i * size + j] = (float)(vector[i * size + j] / norm);
 };

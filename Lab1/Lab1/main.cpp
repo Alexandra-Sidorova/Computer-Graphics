@@ -19,6 +19,7 @@
 #include "Includes/SobelXFilter.h"
 #include "Includes/GrayWorldFilter.h"
 #include "Includes/HistogramLinearStretchFilter.h"
+#include "Includes/GammaCorrectionFilter.h"
 
 // Morphology
 #include "Includes/DilationMorphology.h"
@@ -38,6 +39,8 @@ void main(int argc, char *argv[])
 		if (!strcmp(argv[i], "-p") && (i + 1 < argc))
 			s = argv[i + 1];
 
+	//---------------------------------------------------------------------------------------------------
+
 	cout << "########## TESTING FILTERS PROGRAM ##########" << endl << endl;
 
 	cout << "Photo is loading..." << endl;
@@ -45,7 +48,7 @@ void main(int argc, char *argv[])
 	photo.save("Resources/Starting.PNG");
 	cout << "Photo is saving as Resources/Starting.PNG" << endl << endl;
 
-	/*cout << "Inverting Filter is loading..." << endl;
+	cout << "Inverting Filter is loading..." << endl;
 	InvertFilter* invert = new InvertFilter();
 	QImage invertImage = invert->calculateNewImagePixMap(photo, 0);
 	invertImage.save("Resources/Invert.PNG");
@@ -145,7 +148,17 @@ void main(int argc, char *argv[])
 	HistogramLinearStretchFilter* histogramLinearScretch = new HistogramLinearStretchFilter();
 	QImage histogramLinearScretchImage = histogramLinearScretch->calculateNewImagePixMap(photo, 0);
 	histogramLinearScretchImage.save("Resources/HistogramLinearStretchFilter.PNG");
-	cout << "Photo is saving as Resources/HistogramLinearStretchFilter.PNG" << endl << endl;*/
+	cout << "Photo is saving as Resources/HistogramLinearStretchFilter.PNG" << endl << endl;
+
+	cout << "Gamma Correction Filter is loading..." << endl;
+	GammaCorrectionFilter* gammaCorrection = new GammaCorrectionFilter();
+	QImage gammaCorrectionImage = gammaCorrection->calculateNewImagePixMap(photo, 0);
+	gammaCorrectionImage.save("Resources/GammaCorrectionFilter.PNG");
+	cout << "Photo is saving as Resources/GammaCorrectionFilter.PNG" << endl << endl;
+
+
+	
+	//---------------------------------------------------------------------------------------------------
 
 	cout << "########## TESTING MORPHOLOGY PROGRAM ##########" << endl << endl;
 

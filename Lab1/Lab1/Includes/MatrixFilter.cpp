@@ -10,9 +10,9 @@ MatrixFilter::~MatrixFilter()
 
 QColor MatrixFilter::calculateNewPixelColor(QImage _photo, int _x, int _y, int _radius)
 {
-	int returnR = 0;
-	int returnG = 0;
-	int returnB = 0;
+	float returnR = 0;
+	float returnG = 0;
+	float returnB = 0;
 	int size = 2 * _radius + 1;
 
 	for(int i = -_radius; i <= _radius; i++)

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29503.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomogrammVisualizer", "TomogrammVisualizer\TomogrammVisualizer.csproj", "{7B06C1BB-7D1A-4C10-80EE-9B7E1463F530}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7B06C1BB-7D1A-4C10-80EE-9B7E1463F530}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B06C1BB-7D1A-4C10-80EE-9B7E1463F530}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B06C1BB-7D1A-4C10-80EE-9B7E1463F530}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B06C1BB-7D1A-4C10-80EE-9B7E1463F530}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD5167A2-0D1C-4329-9D98-9CFF1CC4FB71}
+	EndGlobalSection
+EndGlobal

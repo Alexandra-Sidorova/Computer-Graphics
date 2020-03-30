@@ -22,7 +22,7 @@ namespace TomogrammVisualizer
             bin = new Bin();
             view = new View();
             loaded = false;
-            currentLayer = 5;
+            currentLayer = 0;
             trackBar1.Hide();
         }
 
@@ -36,6 +36,7 @@ namespace TomogrammVisualizer
                 view.SetupView(glControl1.Width, glControl1.Height);
                 loaded = true;
                 glControl1.Invalidate();
+                trackBar1.Maximum = Bin.Z - 1;
                 trackBar1.Show();
             }
         }

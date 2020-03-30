@@ -16,7 +16,7 @@ namespace TomogrammVisualizer
             GL.ShadeModel(ShadingModel.Smooth);
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
-            GL.Ortho(0, Bin.X, 0, Bin.Y, -1, -1);
+            GL.Ortho(0, Bin.X, 0, Bin.Y, -1, 1);
             GL.Viewport(0, 0, width, height);
         }
         protected int Clamp(int Val, int Min, int Max)
@@ -32,7 +32,7 @@ namespace TomogrammVisualizer
         protected Color TransferFunction(short value)
         {
             int min = 0;
-            int max = 255;
+            int max = 1000;
             int newVal = Clamp((value - min) * 255 / (max - min), 0, 255);
             return Color.FromArgb(255, newVal, newVal, newVal);
         }
@@ -52,15 +52,15 @@ namespace TomogrammVisualizer
 
                     value = Bin.array[xCoord + (yCoord + 1) * Bin.X + layerNumber * Bin.X * Bin.Y];
                     GL.Color3(TransferFunction(value));
-                    GL.Vertex2(xCoord, yCoord);
+                    GL.Vertex2(xCoord, yCoord + 1);
 
                     value = Bin.array[(xCoord + 1)+ (yCoord + 1) * Bin.X + layerNumber * Bin.X * Bin.Y];
                     GL.Color3(TransferFunction(value));
-                    GL.Vertex2(xCoord, yCoord);
+                    GL.Vertex2(xCoord + 1, yCoord + 1);
 
                     value = Bin.array[(xCoord + 1) + yCoord * Bin.X + layerNumber * Bin.X * Bin.Y];
                     GL.Color3(TransferFunction(value));
-                    GL.Vertex2(xCoord, yCoord);
+                    GL.Vertex2(xCoord + 1, yCoord);
                 }
 
             GL.End();

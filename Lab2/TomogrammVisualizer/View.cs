@@ -32,7 +32,7 @@ namespace TomogrammVisualizer
         protected Color TransferFunction(short value)
         {
             int min = 0;
-            int max = 1000;
+            int max = 2000;
             int newVal = Clamp((value - min) * 255 / (max - min), 0, 255);
             return Color.FromArgb(255, newVal, newVal, newVal);
         }

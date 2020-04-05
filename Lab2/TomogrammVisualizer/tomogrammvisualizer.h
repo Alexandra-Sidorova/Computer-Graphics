@@ -15,5 +15,6 @@ private:
 
 public slots:
 	void OpenDialogMenu();
+	//void SetupView();
 
 };

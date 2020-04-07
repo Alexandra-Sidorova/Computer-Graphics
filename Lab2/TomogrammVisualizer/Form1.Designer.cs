@@ -32,6 +32,8 @@
             this.glControl1 = new OpenTK.GLControl();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
+            this.checkQuads = new System.Windows.Forms.RadioButton();
+            this.checkTexture = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,9 +74,33 @@
             this.label1.TabIndex = 3;
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // checkQuads
+            // 
+            this.checkQuads.AutoSize = true;
+            this.checkQuads.Checked = true;
+            this.checkQuads.Location = new System.Drawing.Point(221, 19);
+            this.checkQuads.Name = "checkQuads";
+            this.checkQuads.Size = new System.Drawing.Size(56, 17);
+            this.checkQuads.TabIndex = 4;
+            this.checkQuads.TabStop = true;
+            this.checkQuads.Text = "Quads";
+            this.checkQuads.UseVisualStyleBackColor = true;
+            // 
+            // checkTexture
+            // 
+            this.checkTexture.AutoSize = true;
+            this.checkTexture.Location = new System.Drawing.Point(283, 19);
+            this.checkTexture.Name = "checkTexture";
+            this.checkTexture.Size = new System.Drawing.Size(61, 17);
+            this.checkTexture.TabIndex = 5;
+            this.checkTexture.Text = "Texture";
+            this.checkTexture.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(784, 461);
+            this.Controls.Add(this.checkTexture);
+            this.Controls.Add(this.checkQuads);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.glControl1);
@@ -96,6 +122,8 @@
         private OpenTK.GLControl glControl1;
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.RadioButton checkQuads;
+        private System.Windows.Forms.RadioButton checkTexture;
     }
 }
 

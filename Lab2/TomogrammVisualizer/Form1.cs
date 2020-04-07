@@ -14,11 +14,13 @@ namespace TomogrammVisualizer
     {
         public Bin bin;
         public View view;
+        public int currentLayer;
         public bool loaded;
         public bool needReload;
-        public int currentLayer;
+        
         int FrameCount;
         DateTime NextFPSUpdate;
+
         public Form1()
         {
             InitializeComponent();
@@ -30,6 +32,10 @@ namespace TomogrammVisualizer
             trackBar1.Hide();
             FrameCount = 0;
             NextFPSUpdate = DateTime.Now.AddSeconds(1);
+            checkQuads.Checked = true;
+            checkQuads.Hide();
+            checkTexture.Checked = false;
+            checkTexture.Hide();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -44,6 +50,8 @@ namespace TomogrammVisualizer
                 glControl1.Invalidate();
                 trackBar1.Maximum = Bin.Z - 1;
                 trackBar1.Show();
+                checkQuads.Show();
+                checkTexture.Show();
             }
         }
 
@@ -51,16 +59,21 @@ namespace TomogrammVisualizer
         {
             if (loaded)
             {
-                //view.DrawQuads(currentLayer);
+                if (checkQuads.Checked)
+                    view.DrawQuads(currentLayer);
 
-                if (needReload)
+                if (checkTexture.Checked)
                 {
-                    view.GenerateTextureImage(currentLayer);
-                    view.Load2dTexture();
-                    needReload = false;
+                    if (needReload)
+                    {
+                        view.GenerateTextureImage(currentLayer);
+                        view.Load2dTexture();
+                        needReload = false;
+                    }
+
+                    view.DrawTexture();
                 }
 
-                view.DrawTexture();
                 glControl1.SwapBuffers();
             }
         }

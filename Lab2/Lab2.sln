@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TomogrammVisualizer", "TomogrammVisualizer\TomogrammVisualizer.vcxproj", "{83A5FD61-FA58-492E-84DA-B55F6BBDF735}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sidorova_tomogramm_visualizer", "sidorova_tomogramm_visualizer\sidorova_tomogramm_visualizer.vcxproj", "{DCF2C3CB-3726-462F-9947-66CF8D949195}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{83A5FD61-FA58-492E-84DA-B55F6BBDF735}.Debug|x64.ActiveCfg = Debug|x64
-		{83A5FD61-FA58-492E-84DA-B55F6BBDF735}.Debug|x64.Build.0 = Debug|x64
-		{83A5FD61-FA58-492E-84DA-B55F6BBDF735}.Release|x64.ActiveCfg = Release|x64
-		{83A5FD61-FA58-492E-84DA-B55F6BBDF735}.Release|x64.Build.0 = Release|x64
+		{DCF2C3CB-3726-462F-9947-66CF8D949195}.Debug|x64.ActiveCfg = Debug|x64
+		{DCF2C3CB-3726-462F-9947-66CF8D949195}.Debug|x64.Build.0 = Debug|x64
+		{DCF2C3CB-3726-462F-9947-66CF8D949195}.Release|x64.ActiveCfg = Release|x64
+		{DCF2C3CB-3726-462F-9947-66CF8D949195}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {7E3826EA-6169-41DA-8A8F-7E046E540FCE}
+		SolutionGuid = {F0D0B5E0-24C2-41D9-9C12-F57192FA8E0F}
 	EndGlobalSection
 EndGlobal

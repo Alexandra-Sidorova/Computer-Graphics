@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{83A5FD61-FA58-492E-84DA-B55F6BBDF735}</ProjectGuid>
+    <ProjectGuid>{DCF2C3CB-3726-462F-9947-66CF8D949195}</ProjectGuid>
     <Keyword>QtVS_v302</Keyword>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
@@ -64,6 +64,7 @@
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -80,21 +81,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="bin.cpp" />
+    <ClCompile Include="data.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="tomogrammvisualizer.cpp" />
+    <ClCompile Include="view.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="tomogrammvisualizer.h" />
+    <QtMoc Include="view.h" />
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="tomogrammvisualizer.ui" />
+    <QtUic Include="view.ui" />
   </ItemGroup>
   <ItemGroup>
-    <QtRcc Include="tomogrammvisualizer.qrc" />
+    <QtRcc Include="view.qrc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="bin.h" />
+    <ClInclude Include="data.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

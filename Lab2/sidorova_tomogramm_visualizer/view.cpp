@@ -27,30 +27,41 @@ void View::LoadData(QString _path)
 };
 //-----------------------------------
 
-//void View::ChangeLayer()
-//{
-//	if (visualization_state == VISUALIZATION_TEXTURE)
-//	{
-//		genTextureImage();
-//		Load2DTexture();
-//	}
-//};
-
 QColor View::TransferFunction(short _v)
 {
 	int c = (_v - data.GetMin()) * 255 / (data.GetMax() - data.GetMin());
 	return QColor(c, c, c);
 };
 
-//void View::textureImage()
-//{
-//
-//};
+void View::ChangeLayer()
+{
+	if (visualization_state == VISUALIZATION_TEXTURE)
+	{
+		genTextureImage();
+		Load2DTexture();
+	}
+};
 
-//void View::Load2DTexture()
-//{
-//
-//};
+void View::genTextureImage()
+{
+	textureImage = QImage(data.GetWidth(), data.GetHeight(), QImage::Format_RGB32);
+
+	for(int y = 0; y < data.GetHeight(); y++)
+		for (int x = 0; x < data.GetWidth(); x++)
+		{
+			QColor c = TransferFunction(data.GetData(x, y, numberLayer));
+			textureImage.setPixelColor(x, y, c);
+		}
+};
+
+void View::Load2DTexture()
+{
+	glBindTexture(GL_TEXTURE_2D, VBOtexture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureImage.width(), textureImage.height(),
+		0, GL_RGBA, GL_UNSIGNED_BYTE, textureImage.bits());
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+};
 
 void View::VisualizationQuads()
 {
@@ -133,7 +144,7 @@ void View::initializeGL()
 	glShadeModel(GL_SMOOTH);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	//glGenTextures(1, &VBOtexture);
+	glGenTextures(1, &VBOtexture);
 };
 
 void View::resizeGL(int _w, int _h)
@@ -169,12 +180,12 @@ void View::keyPressEvent(QKeyEvent* _event)
 	if (_event->nativeVirtualKey() == Qt::Key_U)
 	{
 		Up();
-		//changeLayer();
+		ChangeLayer();
 	}
 	else if (_event->nativeVirtualKey() == Qt::Key_D)
 	{
 		Down();
-		//changeLayer();
+		ChangeLayer();
 	}
 	else if (_event->nativeVirtualKey() == Qt::Key_N)
 	{

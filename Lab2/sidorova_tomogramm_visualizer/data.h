@@ -3,6 +3,8 @@
 
 #include <string>
 #include <cstdio>
+#include <fstream>
+#include <locale>
 #include <qstring.h>
 
 using namespace std;
@@ -29,11 +31,6 @@ public:
 	short GetMin() const;
 
 	void MinMax();
-
-	short& operator[](const int _idx) const;
-
-private:
-	char* QStringToChar(QString text);
 };
 
 #endif

@@ -18,27 +18,45 @@ Data::~Data()
 
 void Data::ReadBIN(QString path)
 {
-	char* charPath = QStringToChar(path);
-	FILE* file;
-	file = fopen(charPath, "rb");
-	if (!file)
+	setlocale(0, "RUS");
+
+	std::ifstream file;
+	file.open(path.toStdString(), std::ios::binary | std::ios::in);
+
+	if (!file.is_open())
 	{
 		QMessageBox::warning(0, "Warning", "File wasn't opened!");
 		return;
 	}
 	
-	fread(&x, sizeof(int), 1, file);
-	fread(&y, sizeof(int), 1, file);
-	fread(&z, sizeof(int), 1, file);
+	int w, h, d;
+
+	file.read((char*)&w, sizeof(int));
+	file.read((char*)&h, sizeof(int));
+	file.read((char*)&d, sizeof(int));
 	
-	fread(&scaleX, sizeof(float), 1, file);
-	fread(&scaleY, sizeof(float), 1, file);
-	fread(&scaleZ, sizeof(float), 1, file);
+	if (w == 0 || h == 0 || d == 0)
+	{
+		QMessageBox::warning(0, "Warning", "File wasn't opened!");
+		return;
+	}
+
+	file.read((char*)&scaleX, sizeof(float));
+	file.read((char*)&scaleY, sizeof(float));
+	file.read((char*)&scaleZ, sizeof(float));
 	
+	if (value != nullptr)
+		delete[] value;
+
+	x = w;
+	y = h;
+	z = d;
+
 	value = new short[x * y * z];
-	for (int i = 0; i < x * y * z; i++)
-		fread(value + i, sizeof(short), 1, file);
-	fclose(file);
+	file.read((char*)value, x * y * z * sizeof(short));
+	file.close();
+
+	MinMax();
 };
 
 short Data::GetData(int _x, int _y, int _z) const
@@ -83,16 +101,4 @@ void Data::MinMax()
 	}
 
 	qDebug() << "Min = " << min << " Max = " << max;
-};
-
-short& Data::operator[](const int _idx) const
-{
-	return value[_idx];
-};
-
-char* Data::QStringToChar(QString text)
-{
-	char* newText = new char[text.length()];
-	strcpy(newText, text.toLocal8Bit().constData());
-	return newText;
 };

@@ -45,10 +45,13 @@ void View::genTextureImage()
 {
 	textureImage = QImage(data.GetWidth(), data.GetHeight(), QImage::Format_RGB32);
 
-	for(int y = 0; y < data.GetHeight(); y++)
-		for (int x = 0; x < data.GetWidth(); x++)
+	int w = data.GetWidth();
+	int h = data.GetHeight();
+
+	for (int y = 0; y < h; y++)
+		for (int x = 0; x < w; x++)
 		{
-			QColor c = TransferFunction(data.GetData(x, y, numberLayer));
+			QColor c = TransferFunction(data[numberLayer * w * h + y * w + x]);
 			textureImage.setPixelColor(x, y, c);
 		}
 };
@@ -57,7 +60,7 @@ void View::Load2DTexture()
 {
 	glBindTexture(GL_TEXTURE_2D, VBOtexture);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureImage.width(), textureImage.height(),
-		0, GL_RGBA, GL_UNSIGNED_BYTE, textureImage.bits());
+		0, GL_BGRA, GL_UNSIGNED_BYTE, textureImage.bits());
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 };
@@ -66,24 +69,27 @@ void View::VisualizationQuads()
 {
 	QColor c;
 
-	for (int y = 0; y < (data.GetHeight() - 1); y++)
-		for (int x = 0; x < (data.GetWidth() - 1); x++)
+	int w = data.GetWidth();
+	int h = data.GetHeight();
+
+	for (int y = 0; y < (h - 1); y++)
+		for (int x = 0; x < (w - 1); x++)
 		{
 			glBegin(GL_QUADS);
 
-			c = TransferFunction(data.GetData(x, y, numberLayer));
+			c = TransferFunction(data[numberLayer * w * h + y * w + x]);
 			qglColor(c);
 			glVertex2i(x, y);
 
-			c = TransferFunction(data.GetData(x, (y + 1), numberLayer));
+			c = TransferFunction(data[numberLayer * w * h + (y + 1) * w + x]);
 			qglColor(c);
 			glVertex2i(x, (y + 1));
 
-			c = TransferFunction(data.GetData((x + 1), (y + 1), numberLayer));
+			c = TransferFunction(data[numberLayer * w * h + (y + 1) * w + (x + 1)]);
 			qglColor(c);
 			glVertex2i((x + 1), (y + 1));
 
-			c = TransferFunction(data.GetData((x + 1), y, numberLayer));
+			c = TransferFunction(data[numberLayer * w * h + y * w + (x + 1)]);
 			qglColor(c);
 			glVertex2i((x + 1), y);
 
@@ -95,24 +101,27 @@ void View::VisualizationQuadStrip()
 {
 	QColor c;
 
-	for (int y = 0; y < (data.GetHeight() - 1); y++)
-		for (int x = 0; x < (data.GetWidth() - 1); x++)
+	int w = data.GetWidth();
+	int h = data.GetHeight();
+
+	for (int y = 0; y < (h - 1); y++)
+		for (int x = 0; x < (w - 1); x++)
 		{
 			glBegin(GL_QUADS);
 
-			c = TransferFunction(data.GetData(x, y, numberLayer));
+			c = TransferFunction(data[numberLayer * w * h + y * w + x]);
 			qglColor(c);
 			glVertex2i(x, y);
 
-			c = TransferFunction(data.GetData(x, (y + 1), numberLayer));
+			c = TransferFunction(data[numberLayer * w * h + (y + 1) * w + x]);
 			qglColor(c);
 			glVertex2i(x, (y + 1));
 
-			c = TransferFunction(data.GetData((x + 1), (y + 1), numberLayer));
+			c = TransferFunction(data[numberLayer * w * h + (y + 1) * w + (x + 1)]);
 			qglColor(c);
 			glVertex2i((x + 1), (y + 1));
 
-			c = TransferFunction(data.GetData((x + 1), y, numberLayer));
+			c = TransferFunction(data[numberLayer * w * h + y * w + (x + 1)]);
 			qglColor(c);
 			glVertex2i((x + 1), y);
 
@@ -235,7 +244,3 @@ void View::keyPressEvent(QKeyEvent* _event)
 
 	update();
 };
-//---------------------------------------------------------------
-
-
-

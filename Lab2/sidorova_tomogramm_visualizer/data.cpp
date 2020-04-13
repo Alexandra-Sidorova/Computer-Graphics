@@ -2,7 +2,7 @@
 
 #include <QMessageBox>
 
-Data::Data() : x(0), y(0), z(0), 
+Data::Data() : width(0), height(0), depth(0), 
 	scaleX(0), scaleY(0), scaleZ(0), min(0), max(0)
 {
 	value = nullptr;
@@ -10,7 +10,9 @@ Data::Data() : x(0), y(0), z(0),
 
 Data::~Data()
 {
-	x = y = z = scaleX = scaleY = scaleZ = min = max = 0;
+	width = height = depth = 0;
+	scaleX = scaleY = scaleZ = 0;
+	min = max = 0;
 	delete[] value;
 };
 //-----------------------------------------
@@ -24,7 +26,7 @@ void Data::ReadBIN(QString path)
 
 	if (!file.is_open())
 	{
-		QMessageBox::warning(0, "Warning", "File wasn't opened!");
+		//QMessageBox::warning(0, "Warning", "File wasn't opened!");
 		file.close();
 		return;
 	}
@@ -37,7 +39,7 @@ void Data::ReadBIN(QString path)
 	
 	if (w == 0 || h == 0 || d == 0)
 	{
-		QMessageBox::warning(0, "Warning", "File wasn't opened!");
+		//QMessageBox::warning(0, "Warning", "Incorrect data!");
 		file.close();
 		return;
 	}
@@ -49,11 +51,11 @@ void Data::ReadBIN(QString path)
 	if (value != nullptr)
 		delete[] value;
 
-	x = w;
-	y = h;
-	z = d;
+	width = w;
+	height = h;
+	depth = d;
 
-	long size = x * y * z;
+	long size = width * height * depth;
 
 	value = new short[size];
 	file.read((char*)value, size * sizeof(short));
@@ -62,24 +64,19 @@ void Data::ReadBIN(QString path)
 	MinMax();
 };
 
-short Data::GetData(int _x, int _y, int _z) const
-{
-	return value[_x + x * _y + x * y * _z];
-};
-
 int Data::GetWidth() const
 {
-	return x;
+	return width;
 };
 
 int Data::GetHeight() const
 {
-	return y;
+	return height;
 };
 
 int Data::GetDepth() const
 {
-	return z;
+	return depth;
 };
 
 short Data::GetMax() const
@@ -95,11 +92,16 @@ short Data::GetMin() const
 void Data::MinMax()
 {
 	min = max = value[0];
-	for (int i = 0; i < x * y * z; i++)
+	for (int i = 0; i < width * height * depth; i++)
 	{
 		if (min > value[i])
 			min = value[i];
 		if (max < value[i])
 			max = value[i];
 	}
+};
+
+short& Data::operator[](const int idx)
+{
+	return value[idx];
 };

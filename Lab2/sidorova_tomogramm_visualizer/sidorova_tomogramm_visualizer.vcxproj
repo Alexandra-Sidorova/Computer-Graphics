@@ -90,9 +90,6 @@
     <QtMoc Include="view.h" />
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="view.ui" />
-  </ItemGroup>
-  <ItemGroup>
     <QtRcc Include="view.qrc" />
   </ItemGroup>
   <ItemGroup>

@@ -11,7 +11,7 @@ class Data
 {
 private:
 	float scaleX, scaleY, scaleZ;
-	int x, y, z;
+	int width, height, depth;
 	short* value;
 	short min, max;
 
@@ -21,7 +21,6 @@ public:
 
 	void ReadBIN(QString path);
 
-	short GetData(int _x, int _y, int _z) const;
 	int GetWidth() const;
 	int GetHeight() const;
 	int GetDepth() const;
@@ -29,6 +28,8 @@ public:
 	short GetMin() const;
 
 	void MinMax();
+
+	short& operator[](const int idx);
 };
 
 #endif

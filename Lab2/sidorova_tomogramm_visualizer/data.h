@@ -7,8 +7,6 @@
 #include <locale>
 #include <qstring.h>
 
-using namespace std;
-
 class Data
 {
 private:

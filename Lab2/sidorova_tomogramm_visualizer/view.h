@@ -9,19 +9,21 @@
 
 #include "data.h"
 
-enum VisualState { VISUALIZATION_QUADS, VISUALIZATION_QUADSTRIP, VISUALIZATION_TEXTURE };
-
 class View : public QGLWidget
 {
 	Q_OBJECT
 
 private:
 	Data data;
-	VisualState visualization_state = VISUALIZATION_QUADS;
 	int numberLayer;
 
 	static const int MAX_WIN_SIZE = 1000;
 	static const int MIN_WIN_SIZE = 250;
+
+	int visualization_state = 0;
+	static const int VISUALIZATION_QUADS = 0;
+	static const int VISUALIZATION_QUADSTRIP = 1;
+	static const int VISUALIZATION_TEXTURE = 2;
 
 	QImage textureImage;
 	GLuint VBOtexture;
@@ -40,7 +42,7 @@ private:
 	void Load2DTexture();
 
 	void VisualizationQuads();
-	//void VisualizationQuadStrip();
+	void VisualizationQuadStrip();
 	void VisualizationTexture();
 
 	void Up();

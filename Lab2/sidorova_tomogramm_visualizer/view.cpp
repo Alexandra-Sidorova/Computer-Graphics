@@ -2,7 +2,6 @@
 
 View::View(QGLWidget* parent) : QGLWidget(parent)
 {
-	visualization_state = VISUALIZATION_QUADS;
 	numberLayer = 0;
 	resizeGL(MIN_WIN_SIZE, MIN_WIN_SIZE);
 	setFocus();
@@ -76,38 +75,76 @@ void View::VisualizationQuads()
 			qglColor(c);
 			glVertex2i(x, y);
 
-			c = TransferFunction(data.GetData(x, y + 1, numberLayer));
+			c = TransferFunction(data.GetData(x, (y + 1), numberLayer));
 			qglColor(c);
-			glVertex2i(x, y + 1);
+			glVertex2i(x, (y + 1));
 
-			c = TransferFunction(data.GetData(x + 1, y + 1, numberLayer));
+			c = TransferFunction(data.GetData((x + 1), (y + 1), numberLayer));
 			qglColor(c);
-			glVertex2i(x + 1, y + 1);
+			glVertex2i((x + 1), (y + 1));
 
-			c = TransferFunction(data.GetData(x + 1, y, numberLayer));
+			c = TransferFunction(data.GetData((x + 1), y, numberLayer));
 			qglColor(c);
-			glVertex2i(x + 1, y);
+			glVertex2i((x + 1), y);
 
 			glEnd();
 		}
 };
 
-//void View::VisualizationQuadStrip()
-//{
-//
-//};
+void View::VisualizationQuadStrip()
+{
+	QColor c;
 
-//void View::VisualizationTexture()
-//{
-//
-//};
+	for (int y = 0; y < (data.GetHeight() - 1); y++)
+		for (int x = 0; x < (data.GetWidth() - 1); x++)
+		{
+			glBegin(GL_QUADS);
+
+			c = TransferFunction(data.GetData(x, y, numberLayer));
+			qglColor(c);
+			glVertex2i(x, y);
+
+			c = TransferFunction(data.GetData(x, (y + 1), numberLayer));
+			qglColor(c);
+			glVertex2i(x, (y + 1));
+
+			c = TransferFunction(data.GetData((x + 1), (y + 1), numberLayer));
+			qglColor(c);
+			glVertex2i((x + 1), (y + 1));
+
+			c = TransferFunction(data.GetData((x + 1), y, numberLayer));
+			qglColor(c);
+			glVertex2i((x + 1), y);
+
+			glEnd();
+		}
+};
+
+void View::VisualizationTexture()
+{
+	glBegin(GL_QUADS);
+	qglColor(QColor(255, 255, 255));
+
+	glTexCoord2f(0, 0);
+	glVertex2i(0, 0);
+
+	glTexCoord2f(0, 1);
+	glVertex2i(0, data.GetHeight());
+
+	glTexCoord2f(1, 1);
+	glVertex2i(data.GetWidth(), data.GetHeight());
+
+	glTexCoord2f(1, 0);
+	glVertex2i(data.GetWidth(), 0);
+
+	glEnd();
+};
 
 void View::Up()
 {
 	if ((numberLayer + 1 < data.GetDepth()))
 		numberLayer++;
 
-	qDebug() << numberLayer + 1;
 	updateGL();
 };
 
@@ -116,7 +153,6 @@ void View::Up10()
 	if ((numberLayer + 10 < data.GetDepth()))
 		numberLayer += 10;
 
-	qDebug() << numberLayer + 10;
 	updateGL();
 };
 
@@ -125,7 +161,6 @@ void View::Down()
 	if ((numberLayer - 1 >= 0))
 		numberLayer--;
 
-	qDebug() << numberLayer - 1;
 	updateGL();
 };
 
@@ -134,7 +169,6 @@ void View::Down10()
 	if ((numberLayer - 10 >= 0))
 		numberLayer -= 10;
 
-	qDebug() << numberLayer - 10;
 	updateGL();
 };
 
@@ -158,7 +192,6 @@ void View::resizeGL(int _w, int _h)
 
 void View::paintGL()
 {
-	qDebug() << "repaint" << visualization_state;
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	switch (visualization_state)
@@ -170,28 +203,36 @@ void View::paintGL()
 		//VisualizationQuadStrip();
 		break;
 	case VISUALIZATION_TEXTURE:
-		//VizualizationTexture();
+		VisualizationTexture();
 		break;
 	}
 };
 
 void View::keyPressEvent(QKeyEvent* _event)
 {
-	if (_event->nativeVirtualKey() == Qt::Key_U)
+	if (_event->nativeVirtualKey() == Qt::Key_W)
 	{
 		Up();
 		ChangeLayer();
 	}
-	else if (_event->nativeVirtualKey() == Qt::Key_D)
+	else if (_event->nativeVirtualKey() == Qt::Key_S)
 	{
 		Down();
 		ChangeLayer();
 	}
-	else if (_event->nativeVirtualKey() == Qt::Key_N)
+	else if (_event->nativeVirtualKey() == Qt::Key_D)
 	{
-		// Переключиться на следующий тип рендеринга
+		visualization_state = (visualization_state + 1) % 3;
+		if (visualization_state == VISUALIZATION_TEXTURE)
+		{
+			glEnable(GL_TEXTURE_2D);
+			genTextureImage();
+			Load2DTexture();
+		}
+		else
+			glDisable(GL_TEXTURE_2D);
 	}
-	// Подняться на слой выше
+
 	update();
 };
 //---------------------------------------------------------------

@@ -1,6 +1,5 @@
 #include "data.h"
 
-#include <qdebug.h>
 #include <QMessageBox>
 
 Data::Data() : x(0), y(0), z(0), 
@@ -26,6 +25,7 @@ void Data::ReadBIN(QString path)
 	if (!file.is_open())
 	{
 		QMessageBox::warning(0, "Warning", "File wasn't opened!");
+		file.close();
 		return;
 	}
 	
@@ -38,6 +38,7 @@ void Data::ReadBIN(QString path)
 	if (w == 0 || h == 0 || d == 0)
 	{
 		QMessageBox::warning(0, "Warning", "File wasn't opened!");
+		file.close();
 		return;
 	}
 
@@ -52,8 +53,10 @@ void Data::ReadBIN(QString path)
 	y = h;
 	z = d;
 
-	value = new short[x * y * z];
-	file.read((char*)value, x * y * z * sizeof(short));
+	long size = x * y * z;
+
+	value = new short[size];
+	file.read((char*)value, size * sizeof(short));
 	file.close();
 
 	MinMax();
@@ -99,6 +102,4 @@ void Data::MinMax()
 		if (max < value[i])
 			max = value[i];
 	}
-
-	qDebug() << "Min = " << min << " Max = " << max;
 };

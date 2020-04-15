@@ -11,6 +11,8 @@
 
 enum Visualization { VISUALIZATION_QUADS, VISUALIZATION_QUADSTRIP, VISUALIZATION_TEXTURE };
 
+enum Axis {X, Y, Z};
+
 class View : public QGLWidget
 {
 	Q_OBJECT
@@ -23,6 +25,7 @@ private:
 	static const int MIN_WIN_SIZE = 250;
 
 	Visualization visualization_state;
+	Axis axis;
 
 	QImage textureImage;
 	GLuint VBOtexture;

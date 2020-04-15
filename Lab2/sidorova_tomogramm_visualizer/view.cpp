@@ -7,6 +7,7 @@ View::View(QGLWidget* parent) : QGLWidget(parent)
 {
 	numberLayer = 0;
 	visualization_state = VISUALIZATION_QUADS;
+	axis = Z;
 	resizeGL(MIN_WIN_SIZE, MIN_WIN_SIZE);
 	setFocus();
 };
@@ -255,6 +256,16 @@ void View::keyPressEvent(QKeyEvent* _event)
 		}
 		else
 			glDisable(GL_TEXTURE_2D);
+	}
+	else if (_event->nativeVirtualKey() == Qt::Key_R)
+	{
+		axis = static_cast<Axis>((axis + 2) % 3);
+
+		if (visualization_state == VISUALIZATION_TEXTURE)
+		{
+			genTextureImage();
+			Load2DTexture();
+		}
 	}
 	else if (_event->nativeVirtualKey() == Qt::Key_F)
 	{

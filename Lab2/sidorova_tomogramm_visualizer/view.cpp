@@ -1,4 +1,7 @@
 #include "view.h"
+#include "dialogminmax.h"
+
+#include <qfiledialog>
 
 View::View(QGLWidget* parent) : QGLWidget(parent)
 {
@@ -24,12 +27,28 @@ void View::LoadData(QString _path)
 	data.ReadBIN(_path);
 	resize(Clamp(data.GetWidth(), MIN_WIN_SIZE, MAX_WIN_SIZE),
 		Clamp(data.GetHeight(), MIN_WIN_SIZE, MAX_WIN_SIZE));
+	
+	min = data.GetMin();
+	max = data.GetMax();
+	
+	update();
 };
 //-----------------------------------
 
+QString View::DialogFile()
+{
+	QString path = QFileDialog::getOpenFileName(this, "Choose binary file", "", "*.bin");
+	return path;
+};
+
+void View::DialogMinMax()
+{
+
+};
+
 QColor View::TransferFunction(short _v)
 {
-	int c = (_v - data.GetMin()) * 255 / (data.GetMax() - data.GetMin());
+	int c = (_v - min) * 255 / (max - min);
 	return QColor(c, c, c);
 };
 
@@ -105,13 +124,12 @@ void View::VisualizationQuadStrip()
 	int w = data.GetWidth();
 	int h = data.GetHeight();
 
-	for (int y = 0; y < h; y++)
+	for (int y = 0; y < (h - 1); y++)
 	{
 		glBegin(GL_QUAD_STRIP);
 
 		for (int x = 0; x < w; x++)
 		{
-
 			c = TransferFunction(data[numberLayer * w * h + y * w + x]);
 			qglColor(c);
 			glVertex2i(x, y);
@@ -153,26 +171,10 @@ void View::Up()
 	updateGL();
 };
 
-void View::Up10()
-{
-	if ((numberLayer + 10 < data.GetDepth()))
-		numberLayer += 10;
-
-	updateGL();
-};
-
 void View::Down()
 {
 	if ((numberLayer - 1 >= 0))
 		numberLayer--;
-
-	updateGL();
-};
-
-void View::Down10()
-{
-	if ((numberLayer - 10 >= 0))
-		numberLayer -= 10;
 
 	updateGL();
 };
@@ -253,6 +255,31 @@ void View::keyPressEvent(QKeyEvent* _event)
 		}
 		else
 			glDisable(GL_TEXTURE_2D);
+	}
+	else if (_event->nativeVirtualKey() == Qt::Key_F)
+	{
+		numberLayer = 0;
+		ChangeLayer();
+		QString path = DialogFile();
+		LoadData(path);
+	}
+	else if(_event->nativeVirtualKey() == Qt::Key_T)
+	{
+		Dialog* dialog = new Dialog;
+		dialog->exec();
+
+		if (dialog->Max() > 0)
+			max = dialog->Max();
+		if (dialog->Min() > 0)
+			min = dialog->Min();
+
+		if (visualization_state == VISUALIZATION_TEXTURE)
+		{
+			genTextureImage();
+			Load2DTexture();
+		}
+
+		delete dialog;
 	}
 
 	update();

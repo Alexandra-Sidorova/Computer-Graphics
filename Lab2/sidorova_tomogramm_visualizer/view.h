@@ -19,13 +19,15 @@ private:
 	Data data;
 	int numberLayer;
 
-	static const int MAX_WIN_SIZE = 500;
+	static const int MAX_WIN_SIZE = 1000;
 	static const int MIN_WIN_SIZE = 250;
 
 	Visualization visualization_state;
 
 	QImage textureImage;
 	GLuint VBOtexture;
+
+	short min, max;
 
 public:
 	View(QGLWidget *parent = Q_NULLPTR);
@@ -34,6 +36,9 @@ public:
 	void LoadData(QString _path);
 
 private:
+	QString DialogFile();
+	void DialogMinMax();
+
 	QColor TransferFunction(short _v);
 
 	void ChangeLayer();
@@ -45,9 +50,7 @@ private:
 	void VisualizationTexture();
 
 	void Up();
-	void Up10();
 	void Down();
-	void Down10();
 
 protected:
 	void initializeGL() override;

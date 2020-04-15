@@ -3,6 +3,7 @@
 View::View(QGLWidget* parent) : QGLWidget(parent)
 {
 	numberLayer = 0;
+	visualization_state = VISUALIZATION_QUADS;
 	resizeGL(MIN_WIN_SIZE, MIN_WIN_SIZE);
 	setFocus();
 };
@@ -104,10 +105,12 @@ void View::VisualizationQuadStrip()
 	int w = data.GetWidth();
 	int h = data.GetHeight();
 
-	for (int y = 0; y < (h - 1); y++)
-		for (int x = 0; x < (w - 1); x++)
+	for (int y = 0; y < h; y++)
+	{
+		glBegin(GL_QUAD_STRIP);
+
+		for (int x = 0; x < w; x++)
 		{
-			glBegin(GL_QUADS);
 
 			c = TransferFunction(data[numberLayer * w * h + y * w + x]);
 			qglColor(c);
@@ -116,17 +119,10 @@ void View::VisualizationQuadStrip()
 			c = TransferFunction(data[numberLayer * w * h + (y + 1) * w + x]);
 			qglColor(c);
 			glVertex2i(x, (y + 1));
-
-			c = TransferFunction(data[numberLayer * w * h + (y + 1) * w + (x + 1)]);
-			qglColor(c);
-			glVertex2i((x + 1), (y + 1));
-
-			c = TransferFunction(data[numberLayer * w * h + y * w + (x + 1)]);
-			qglColor(c);
-			glVertex2i((x + 1), y);
-
-			glEnd();
 		}
+
+		glEnd();
+	}
 };
 
 void View::VisualizationTexture()
@@ -206,12 +202,15 @@ void View::paintGL()
 	switch (visualization_state)
 	{
 	case VISUALIZATION_QUADS:
+		this->setWindowTitle("Visualization Quads");
 		VisualizationQuads();
 		break;
 	case VISUALIZATION_QUADSTRIP:
-		//VisualizationQuadStrip();
+		this->setWindowTitle("Visualization QuadStrip");
+		VisualizationQuadStrip();
 		break;
 	case VISUALIZATION_TEXTURE:
+		this->setWindowTitle("Visualization Texture");
 		VisualizationTexture();
 		break;
 	}
@@ -231,7 +230,21 @@ void View::keyPressEvent(QKeyEvent* _event)
 	}
 	else if (_event->nativeVirtualKey() == Qt::Key_D)
 	{
-		visualization_state = (visualization_state + 1) % 3;
+		visualization_state = static_cast<Visualization>((visualization_state + 1) % 3);
+		
+		if (visualization_state == VISUALIZATION_TEXTURE)
+		{
+			glEnable(GL_TEXTURE_2D);
+			genTextureImage();
+			Load2DTexture();
+		}
+		else
+			glDisable(GL_TEXTURE_2D);
+	}
+	else if (_event->nativeVirtualKey() == Qt::Key_A)
+	{
+		visualization_state = static_cast<Visualization>((visualization_state + 2) % 3);
+
 		if (visualization_state == VISUALIZATION_TEXTURE)
 		{
 			glEnable(GL_TEXTURE_2D);

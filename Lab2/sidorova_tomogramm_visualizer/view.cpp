@@ -26,12 +26,16 @@ int Clamp(int _v, int _min, int _max)
 void View::LoadData(QString _path)
 {
 	data.ReadBIN(_path);
-	resize(Clamp(data.GetWidth(), MIN_WIN_SIZE, MAX_WIN_SIZE),
-		Clamp(data.GetHeight(), MIN_WIN_SIZE, MAX_WIN_SIZE));
-	
+
+	width = data.GetWidth();
+	height = data.GetHeight();
+	depth = data.GetDepth();
 	min = data.GetMin();
 	max = data.GetMax();
-	
+
+	resize(Clamp(width, MIN_WIN_SIZE, MAX_WIN_SIZE),
+		Clamp(height, MIN_WIN_SIZE, MAX_WIN_SIZE));
+
 	update();
 };
 //-----------------------------------
@@ -40,11 +44,6 @@ QString View::DialogFile()
 {
 	QString path = QFileDialog::getOpenFileName(this, "Choose binary file", "", "*.bin");
 	return path;
-};
-
-void View::DialogMinMax()
-{
-
 };
 
 QColor View::TransferFunction(short _v)
@@ -64,17 +63,39 @@ void View::ChangeLayer()
 
 void View::genTextureImage()
 {
-	textureImage = QImage(data.GetWidth(), data.GetHeight(), QImage::Format_RGB32);
+	switch (axis)
+	{
+	case Z:
+		textureImage = QImage(width, height, QImage::Format_RGB32);
 
-	int w = data.GetWidth();
-	int h = data.GetHeight();
+		for (int y = 0; y < height; y++)
+			for (int x = 0; x < width; x++)
+			{
+				QColor c = TransferFunction(data[numberLayer * width * height + y * width + x]);
+				textureImage.setPixelColor(x, y, c);
+			}
+		break;
+	case Y:
+		textureImage = QImage(width, depth, QImage::Format_RGB32);
 
-	for (int y = 0; y < h; y++)
-		for (int x = 0; x < w; x++)
-		{
-			QColor c = TransferFunction(data[numberLayer * w * h + y * w + x]);
-			textureImage.setPixelColor(x, y, c);
-		}
+		for (int z = 0; z < depth; z++)
+			for (int x = 0; x < width; x++)
+			{
+				QColor c = TransferFunction(data[z * width * height + numberLayer * width + x]);
+				textureImage.setPixelColor(x, z, c);
+			}
+		break;
+	case X:
+		textureImage = QImage(height, depth, QImage::Format_RGB32);
+
+		for (int z = 0; z < depth; z++)
+			for (int y = 0; y < height; y++)
+			{
+				QColor c = TransferFunction(data[z * width * height + y * width + numberLayer]);
+				textureImage.setPixelColor(y, z, c);
+			}
+		break;
+	}
 };
 
 void View::Load2DTexture()
@@ -90,27 +111,24 @@ void View::VisualizationQuads()
 {
 	QColor c;
 
-	int w = data.GetWidth();
-	int h = data.GetHeight();
-
-	for (int y = 0; y < (h - 1); y++)
-		for (int x = 0; x < (w - 1); x++)
+	for (int y = 0; y < (height - 1); y++)
+		for (int x = 0; x < (width - 1); x++)
 		{
 			glBegin(GL_QUADS);
 
-			c = TransferFunction(data[numberLayer * w * h + y * w + x]);
+			c = TransferFunction(data[numberLayer * width * height + y * width + x]);
 			qglColor(c);
 			glVertex2i(x, y);
 
-			c = TransferFunction(data[numberLayer * w * h + (y + 1) * w + x]);
+			c = TransferFunction(data[numberLayer * width * height + (y + 1) * width + x]);
 			qglColor(c);
 			glVertex2i(x, (y + 1));
 
-			c = TransferFunction(data[numberLayer * w * h + (y + 1) * w + (x + 1)]);
+			c = TransferFunction(data[numberLayer * width * height + (y + 1) * width + (x + 1)]);
 			qglColor(c);
 			glVertex2i((x + 1), (y + 1));
 
-			c = TransferFunction(data[numberLayer * w * h + y * w + (x + 1)]);
+			c = TransferFunction(data[numberLayer * width * height + y * width + (x + 1)]);
 			qglColor(c);
 			glVertex2i((x + 1), y);
 
@@ -122,20 +140,17 @@ void View::VisualizationQuadStrip()
 {
 	QColor c;
 
-	int w = data.GetWidth();
-	int h = data.GetHeight();
-
-	for (int y = 0; y < (h - 1); y++)
+	for (int y = 0; y < (height - 1); y++)
 	{
 		glBegin(GL_QUAD_STRIP);
 
-		for (int x = 0; x < w; x++)
+		for (int x = 0; x < width; x++)
 		{
-			c = TransferFunction(data[numberLayer * w * h + y * w + x]);
+			c = TransferFunction(data[numberLayer * width * height + y * width + x]);
 			qglColor(c);
 			glVertex2i(x, y);
 
-			c = TransferFunction(data[numberLayer * w * h + (y + 1) * w + x]);
+			c = TransferFunction(data[numberLayer * width * height + (y + 1) * width + x]);
 			qglColor(c);
 			glVertex2i(x, (y + 1));
 		}
@@ -152,22 +167,60 @@ void View::VisualizationTexture()
 	glTexCoord2f(0, 0);
 	glVertex2i(0, 0);
 
-	glTexCoord2f(0, 1);
-	glVertex2i(0, data.GetHeight());
+	switch (axis)
+	{
+	case Z:
+		glTexCoord2f(0, 1);
+		glVertex2i(0, height);
 
-	glTexCoord2f(1, 1);
-	glVertex2i(data.GetWidth(), data.GetHeight());
+		glTexCoord2f(1, 1);
+		glVertex2i(width, height);
 
-	glTexCoord2f(1, 0);
-	glVertex2i(data.GetWidth(), 0);
+		glTexCoord2f(1, 0);
+		glVertex2i(width, 0);
+		break;
+	case Y:
+		glTexCoord2f(0, 1);
+		glVertex2i(0, depth);
+
+		glTexCoord2f(1, 1);
+		glVertex2i(width, depth);
+
+		glTexCoord2f(1, 0);
+		glVertex2i(width, 0);
+		break;
+	case X:
+		glTexCoord2f(0, 1);
+		glVertex2i(0, depth);
+
+		glTexCoord2f(1, 1);
+		glVertex2i(height, depth);
+
+		glTexCoord2f(1, 0);
+		glVertex2i(height, 0);
+		break;
+	}
 
 	glEnd();
 };
 
 void View::Up()
 {
-	if ((numberLayer + 1 < data.GetDepth()))
-		numberLayer++;
+	switch (axis)
+	{
+	case Z:
+		if ((numberLayer + 1 < depth))
+			numberLayer++;
+		break;
+	case Y:
+		if ((numberLayer + 1 < height))
+			numberLayer++;
+		break;
+	case X:
+		if ((numberLayer + 1 < width))
+			numberLayer++;
+		break;
+	}
 
 	updateGL();
 };
@@ -193,7 +246,20 @@ void View::resizeGL(int _w, int _h)
 {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(0.0f, data.GetWidth() - 1, 0.0f, data.GetHeight() - 1, -1.0f, 1.0f);
+
+	switch (axis)
+	{
+	case Z:
+		glOrtho(0.0f, width - 1, 0.0f, height - 1, -1.0f, 1.0f);
+		break;
+	case Y:
+		glOrtho(0.0f, width - 1, 0.0f, depth - 1, -1.0f, 1.0f);
+		break;
+	case X:
+		glOrtho(0.0f, height - 1, 0.0f, depth - 1, -1.0f, 1.0f);
+		break;
+	}
+
 	glViewport(0, 0, _w, _h);
 	update();
 };
@@ -260,6 +326,23 @@ void View::keyPressEvent(QKeyEvent* _event)
 	else if (_event->nativeVirtualKey() == Qt::Key_R)
 	{
 		axis = static_cast<Axis>((axis + 2) % 3);
+		numberLayer = 0;
+
+		switch (axis)
+		{
+		case Z:
+			resize(Clamp(width, MIN_WIN_SIZE, MAX_WIN_SIZE),
+				Clamp(height, MIN_WIN_SIZE, MAX_WIN_SIZE));
+			break;
+		case Y:
+			resize(Clamp(width, MIN_WIN_SIZE, MAX_WIN_SIZE),
+				Clamp(depth, MIN_WIN_SIZE, MAX_WIN_SIZE));
+			break;
+		case X:
+			resize(Clamp(height, MIN_WIN_SIZE, MAX_WIN_SIZE),
+				Clamp(depth, MIN_WIN_SIZE, MAX_WIN_SIZE));
+			break;
+		}
 
 		if (visualization_state == VISUALIZATION_TEXTURE)
 		{

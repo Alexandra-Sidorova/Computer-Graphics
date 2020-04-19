@@ -24,6 +24,8 @@ private:
 	static const int MAX_WIN_SIZE = 1000;
 	static const int MIN_WIN_SIZE = 250;
 
+	int width, height, depth;
+
 	Visualization visualization_state;
 	Axis axis;
 
@@ -40,7 +42,6 @@ public:
 
 private:
 	QString DialogFile();
-	void DialogMinMax();
 
 	QColor TransferFunction(short _v);
 

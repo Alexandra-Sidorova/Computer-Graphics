@@ -10,6 +10,7 @@ View::View(QGLWidget* parent) : QGLWidget(parent)
 	axis = Z;
 	resizeGL(MIN_WIN_SIZE, MIN_WIN_SIZE);
 	setFocus();
+	this->setWindowIcon(QIcon("resources/heart.jpg"));
 };
 //------------------------------------
 

@@ -111,51 +111,149 @@ void View::VisualizationQuads()
 {
 	QColor c;
 
-	for (int y = 0; y < (height - 1); y++)
-		for (int x = 0; x < (width - 1); x++)
-		{
-			glBegin(GL_QUADS);
+	switch (axis)
+	{
+	case Z:
+		for (int y = 0; y < (height - 1); y++)
+			for (int x = 0; x < (width - 1); x++)
+			{
+				glBegin(GL_QUADS);
 
-			c = TransferFunction(data[numberLayer * width * height + y * width + x]);
-			qglColor(c);
-			glVertex2i(x, y);
+				c = TransferFunction(data[numberLayer * width * height + y * width + x]);
+				qglColor(c);
+				glVertex2i(x, y);
 
-			c = TransferFunction(data[numberLayer * width * height + (y + 1) * width + x]);
-			qglColor(c);
-			glVertex2i(x, (y + 1));
+				c = TransferFunction(data[numberLayer * width * height + (y + 1) * width + x]);
+				qglColor(c);
+				glVertex2i(x, (y + 1));
 
-			c = TransferFunction(data[numberLayer * width * height + (y + 1) * width + (x + 1)]);
-			qglColor(c);
-			glVertex2i((x + 1), (y + 1));
+				c = TransferFunction(data[numberLayer * width * height + (y + 1) * width + (x + 1)]);
+				qglColor(c);
+				glVertex2i((x + 1), (y + 1));
 
-			c = TransferFunction(data[numberLayer * width * height + y * width + (x + 1)]);
-			qglColor(c);
-			glVertex2i((x + 1), y);
+				c = TransferFunction(data[numberLayer * width * height + y * width + (x + 1)]);
+				qglColor(c);
+				glVertex2i((x + 1), y);
 
-			glEnd();
-		}
+				glEnd();
+			}
+		break;
+	case Y:
+		for (int z = 0; z < (depth - 1); z++)
+			for (int x = 0; x < (width - 1); x++)
+			{
+				glBegin(GL_QUADS);
+
+				c = TransferFunction(data[z * width * height + numberLayer * width + x]);
+				qglColor(c);
+				glVertex2i(x, z);
+
+				c = TransferFunction(data[(z + 1) * width * height + numberLayer * width + x]);
+				qglColor(c);
+				glVertex2i(x, (z + 1));
+
+				c = TransferFunction(data[(z + 1) * width * height + numberLayer * width + (x + 1)]);
+				qglColor(c);
+				glVertex2i((x + 1), (z + 1));
+
+				c = TransferFunction(data[z * width * height + numberLayer * width + (x + 1)]);
+				qglColor(c);
+				glVertex2i((x + 1), z);
+
+				glEnd();
+			}
+		break;
+	case X:
+		for (int z = 0; z < (depth - 1); z++)
+			for (int y = 0; y < (height - 1); y++)
+			{
+				glBegin(GL_QUADS);
+
+				c = TransferFunction(data[z * width * height + y * width + numberLayer]);
+				qglColor(c);
+				glVertex2i(y, z);
+
+				c = TransferFunction(data[(z + 1) * width * height + y * width + numberLayer]);
+				qglColor(c);
+				glVertex2i(y, (z + 1));
+
+				c = TransferFunction(data[(z + 1) * width * height + (y + 1) * width + numberLayer]);
+				qglColor(c);
+				glVertex2i((y + 1), (z + 1));
+
+				c = TransferFunction(data[z * width * height + (y + 1) * width + numberLayer]);
+				qglColor(c);
+				glVertex2i((y + 1), z);
+
+				glEnd();
+			}
+		break;
+	}
 };
 
 void View::VisualizationQuadStrip()
 {
 	QColor c;
 
-	for (int y = 0; y < (height - 1); y++)
+	switch (axis)
 	{
-		glBegin(GL_QUAD_STRIP);
-
-		for (int x = 0; x < width; x++)
+	case Z:
+		for (int y = 0; y < (height - 1); y++)
 		{
-			c = TransferFunction(data[numberLayer * width * height + y * width + x]);
-			qglColor(c);
-			glVertex2i(x, y);
+			glBegin(GL_QUAD_STRIP);
 
-			c = TransferFunction(data[numberLayer * width * height + (y + 1) * width + x]);
-			qglColor(c);
-			glVertex2i(x, (y + 1));
+			for (int x = 0; x < width; x++)
+			{
+				c = TransferFunction(data[numberLayer * width * height + y * width + x]);
+				qglColor(c);
+				glVertex2i(x, y);
+
+				c = TransferFunction(data[numberLayer * width * height + (y + 1) * width + x]);
+				qglColor(c);
+				glVertex2i(x, (y + 1));
+			}
+
+			glEnd();
 		}
+		break;
+	case Y:
+		for (int z = 0; z < (depth - 1); z++)
+		{
+			glBegin(GL_QUAD_STRIP);
 
-		glEnd();
+			for (int x = 0; x < width; x++)
+			{
+				c = TransferFunction(data[z * width * height + numberLayer * width + x]);
+				qglColor(c);
+				glVertex2i(x, z);
+
+				c = TransferFunction(data[(z + 1) * width * height + numberLayer * width + x]);
+				qglColor(c);
+				glVertex2i(x, (z + 1));
+			}
+
+			glEnd();
+		}
+		break;
+	case X:
+		for (int z = 0; z < (depth - 1); z++)
+		{
+			glBegin(GL_QUAD_STRIP);
+
+			for (int y = 0; y < height; y++)
+			{
+				c = TransferFunction(data[z * width * height + y * width + numberLayer]);
+				qglColor(c);
+				glVertex2i(y, z);
+
+				c = TransferFunction(data[(z + 1) * width * height + y * width + numberLayer]);
+				qglColor(c);
+				glVertex2i(y, (z + 1));
+			}
+
+			glEnd();
+		}
+		break;
 	}
 };
 

@@ -23,6 +23,9 @@
       <Extensions>qrc;*</Extensions>
       <ParseFiles>false</ParseFiles>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{66feced8-3a22-47c8-bc7a-4ace636756f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -41,5 +44,13 @@
     <QtRcc Include="shaderwidget.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="raytracing.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="raytracing.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -38,6 +38,17 @@ void ShaderWidget::initializeGL()
 	}
 	
 	vertDataLocation = mProgram.attributeLocation("vertex");
+
+	if (!mProgram.bind())
+		return;
+
+	mProgram.setUniformValue("camera.position", QVector3D(0.0, 0.0, -10));
+	mProgram.setUniformValue("camera.view", QVector3D(0.0, 0.0, 1.0));
+	mProgram.setUniformValue("camera.up", QVector3D(0.0, 1.0, 0.0));
+	mProgram.setUniformValue("camera.side", QVector3D(1.0, 0.0, 0.0));
+	mProgram.setUniformValue("camera.scale", QVector2D(width(), height()));
+	
+	mProgram.release();
 };
 
 void ShaderWidget::resizeGL(int nWidth, int nHeight)

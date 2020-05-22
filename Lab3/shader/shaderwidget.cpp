@@ -50,7 +50,7 @@ void ShaderWidget::initializeGL()
     mProgram.setUniformValue("spherein[0].center", QVector3D(0.0, 0.0, 0.0));
     mProgram.setUniformValue("spherein[0].color", QVector3D(1.0, 0.0, 1.0));
     mProgram.setUniformValue("spherein[0].radius", 1.0f);
-    mProgram.setUniformValue("spherein[1].center", QVector3D(3.0, 3.0, 0.0));
+    mProgram.setUniformValue("spherein[1].center", QVector3D(3.0, -3.0, 0.0));
     mProgram.setUniformValue("spherein[1].color", QVector3D(0.0, 0.0, 1.0));
     mProgram.setUniformValue("spherein[1].radius", 2.0f);
 
@@ -103,6 +103,24 @@ void ShaderWidget::initializeGL()
     mProgram.setUniformValue("trianglein[9].v2", QVector3D(-5.0, -5.0, 5.0));
     mProgram.setUniformValue("trianglein[9].v3", QVector3D(5.0, -5.0, -5.0));
     mProgram.setUniformValue("trianglein[9].color", QVector3D(0.0, 1.0, 0.0));
+
+    // tetr
+    mProgram.setUniformValue("trianglein[10].v1", QVector3D(-5.0, -5.0, 5.0));
+    mProgram.setUniformValue("trianglein[10].v2", QVector3D(-1.0, -5.0, 5.0));
+    mProgram.setUniformValue("trianglein[10].v3", QVector3D(-3.0, -5.0, 1.53));
+    mProgram.setUniformValue("trianglein[10].color", QVector3D(0.0, 1.0, 1.0));
+    mProgram.setUniformValue("trianglein[11].v1", QVector3D(-5.0, -5.0, 5.0));
+    mProgram.setUniformValue("trianglein[11].v2", QVector3D(-1.0, -5.0, 5.0));
+    mProgram.setUniformValue("trianglein[11].v3", QVector3D(-3.0, -1.53, 1.53));
+    mProgram.setUniformValue("trianglein[11].color", QVector3D(0.0, 1.0, 1.0));
+    mProgram.setUniformValue("trianglein[12].v1", QVector3D(-5.0, -5.0, 5.0));
+    mProgram.setUniformValue("trianglein[12].v2", QVector3D(-3.0, -5.0, 1.53));
+    mProgram.setUniformValue("trianglein[12].v3", QVector3D(-3.0, -1.53, 1.53));
+    mProgram.setUniformValue("trianglein[12].color", QVector3D(0.0, 1.0, 1.0));
+    mProgram.setUniformValue("trianglein[13].v1", QVector3D(-1.0, -5.0, 5.0));
+    mProgram.setUniformValue("trianglein[13].v2", QVector3D(-3.0, -5.0, 1.53));
+    mProgram.setUniformValue("trianglein[13].v3", QVector3D(-3.0, -1.53, 1.53));
+    mProgram.setUniformValue("trianglein[13].color", QVector3D(0.0, 1.0, 1.0));
 
     mProgram.setUniformValue("scale", QVector2D(width(), height()));
 

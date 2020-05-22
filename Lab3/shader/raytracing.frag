@@ -49,12 +49,12 @@ struct Intersection
 };
 
 Material material = {0.4, 0.9, 0.0, 512.0};
-vec3 lightPos = vec3(1, 3, -4);
+vec3 lightPos = vec3(4.5, 4.5, -4.5);
 
 uniform Camera camera;
 uniform vec2 scale;
 uniform Sphere spherein[2];
-uniform Triangle trianglein[10];
+uniform Triangle trianglein[14];
 
 bool IntersectSphere (Sphere sphere, Ray ray, float start, float final, out float time)
 {
@@ -149,7 +149,7 @@ bool Intersect(Ray ray, float start, float final, inout Intersection intersect)
 		}
 	}
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 14; i++)
 	{
 		if (IntersectTriangle(ray, trianglein[i].v1, trianglein[i].v2, trianglein[i].v3, time) && time < intersect.time)
 		{
@@ -165,17 +165,33 @@ bool Intersect(Ray ray, float start, float final, inout Intersection intersect)
 	return result;
 };
 
-vec3 Phong(Intersection intersect)
+vec3 Phong(Intersection intersect, float shadow)
 {
 	vec3 light = normalize(lightPos - intersect.point);
 	float diffuse = max(dot(light, intersect.normal), 0.0);
 	vec3 view = normalize(camera.position - intersect.point);
-	vec3 reflected = reflect(-view, intersect.normal);
+	vec3 reflected = reflect(view, -intersect.normal);
 	float specular = pow(max(dot(reflected, light), 0.0), material.specularPower);
-	return material.ambient * intersect.color + 
-		   material.diffuse * diffuse * intersect.color +
-		   material.specular * specular;
-}
+	
+	return material.ambient * intersect.color + shadow * 
+		   (material.diffuse * diffuse * intersect.color +
+		   material.specular * specular * vec3(1,1,1));
+};
+
+float Shadow(vec3 point)
+{
+	float light = 1.0;
+	vec3 direction = normalize(lightPos - point);
+	Ray shadowRay = Ray(point + direction * 0.001, direction);
+	Intersection intersect;
+	
+	intersect.time = distance(lightPos, point);
+	
+	if (Intersect(shadowRay, 0, intersect.time, intersect))
+		light = 0.0;
+	
+	return light;
+};
 
 vec4 Raytrace(Ray primary_ray)
 {
@@ -189,27 +205,11 @@ vec4 Raytrace(Ray primary_ray)
 	
 	if (Intersect(ray, start, final, intersect))
 	{
-		//float shadowing = Shadow(intersect);
-		resultColor += vec4(Phong(intersect), 0.0);
-		//resultColor += vec4(intersect.color, 0.0);
+		float shadowing = Shadow(intersect.point);
+		resultColor += vec4(Phong(intersect, shadowing), 0.0);
 	}
 	return resultColor;
 };
-
-/*float Shadow(Intersection intersect)
-{
-	float shadowing = 1.0;
-	vec3 direction = normalize(light_pos - intersect.point);
-	float distanceLight = distance(light_pos, intersect.point);
-	Ray shadowRay = Ray(intersect.point + direction * 0.0001, direction);
-	Intersection shadowIntersect;
-	shadowIntersect.time = 10000.0;
-	
-	if (Raytrace(shadowRay))
-		shadowing = 0.0;
-	
-	return shadowing;
-}*/
 
 Ray GenerateRay(Camera camera)
 {

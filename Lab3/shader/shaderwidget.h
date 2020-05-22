@@ -4,7 +4,8 @@
 #include <QDebug>
 #include <iostream>
 
-class ShaderWidget : public QOpenGLWidget {
+class ShaderWidget : public QOpenGLWidget
+{
 private:
 	QOpenGLShaderProgram mProgram;
 	GLfloat* vertData;

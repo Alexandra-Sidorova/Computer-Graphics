@@ -1,25 +1,21 @@
 #pragma once
+#include <QOpenGLWidget>
+#include <QOpenGLShaderProgram>
+#include <QDebug>
+#include <iostream>
 
-#include <QtWidgets/QWidget>
-#include <QtOpengl>
-#include <QGLWidget>
-
-class ShaderWidget : public QGLWidget
-{
-	Q_OBJECT
-
+class ShaderWidget : public QOpenGLWidget {
 private:
 	QOpenGLShaderProgram mProgram;
-
 	GLfloat* vertData;
 	int vertDataLocation;
-
-public:
-	ShaderWidget(QGLWidget *parent = Q_NULLPTR);
-	~ShaderWidget();
 
 protected:
 	void initializeGL() override;
 	void resizeGL(int nWidth, int nHeight) override;
 	void paintGL() override;
+
+public:
+	ShaderWidget(QWidget* parent = 0);
+	~ShaderWidget();
 };

@@ -86,7 +86,7 @@
     <ClCompile Include="shaderwidget.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="shaderwidget.h" />
+    <ClInclude Include="shaderwidget.h" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="shaderwidget.qrc" />

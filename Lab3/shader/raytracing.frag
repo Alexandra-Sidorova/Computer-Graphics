@@ -48,13 +48,16 @@ struct Intersection
 	vec3 color;
 };
 
+const int countTriangles = 14;
+const int countSpheres = 2;
+
 Material material = {0.4, 0.9, 0.0, 512.0};
 vec3 lightPos = vec3(4.5, 4.5, -4.5);
 
 uniform Camera camera;
 uniform vec2 scale;
-uniform Sphere spherein[2];
-uniform Triangle trianglein[14];
+uniform Sphere spherein[countSpheres];
+uniform Triangle trianglein[countTriangles];
 
 bool IntersectSphere (Sphere sphere, Ray ray, float start, float final, out float time)
 {
@@ -137,7 +140,7 @@ bool Intersect(Ray ray, float start, float final, inout Intersection intersect)
 	float time = start;
 	intersect.time = final;
 	
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < countSpheres; i++)
 	{
 		if (IntersectSphere(spherein[i], ray, start, final, time) && time < intersect.time)
 		{
@@ -149,7 +152,7 @@ bool Intersect(Ray ray, float start, float final, inout Intersection intersect)
 		}
 	}
 
-	for (int i = 0; i < 14; i++)
+	for (int i = 0; i < countTriangles; i++)
 	{
 		if (IntersectTriangle(ray, trianglein[i].v1, trianglein[i].v2, trianglein[i].v3, time) && time < intersect.time)
 		{

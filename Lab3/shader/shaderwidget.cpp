@@ -47,7 +47,7 @@ void ShaderWidget::initializeGL()
     mProgram.setUniformValue("camera.up", QVector3D(0.0, 1.0, 0.0));
     mProgram.setUniformValue("camera.side", QVector3D(1.0, 0.0, 0.0));
 
-    mProgram.setUniformValue("spherein[0].center", QVector3D(0.0, 0.0, 0.0));
+    mProgram.setUniformValue("spherein[0].center", QVector3D(0.0, 1.0, 0.0));
     mProgram.setUniformValue("spherein[0].color", QVector3D(1.0, 0.0, 1.0));
     mProgram.setUniformValue("spherein[0].radius", 1.0f);
     mProgram.setUniformValue("spherein[1].center", QVector3D(3.0, -3.0, 0.0));
@@ -56,8 +56,8 @@ void ShaderWidget::initializeGL()
 
     // left
     mProgram.setUniformValue("trianglein[0].v1", QVector3D(-5.0, -5.0, -5.0));
-    mProgram.setUniformValue("trianglein[0].v2", QVector3D(-5.0, 5.0, 5.0));
-    mProgram.setUniformValue("trianglein[0].v3", QVector3D(-5.0, 5.0, -5.0));
+    mProgram.setUniformValue("trianglein[0].v2", QVector3D(-5.0, 5.0, -5.0));
+    mProgram.setUniformValue("trianglein[0].v3", QVector3D(-5.0, 5.0, 5.0));
     mProgram.setUniformValue("trianglein[0].color", QVector3D(1.0, 1.0, 0.0));
     mProgram.setUniformValue("trianglein[1].v1", QVector3D(-5.0, -5.0, -5.0));
     mProgram.setUniformValue("trianglein[1].v2", QVector3D(-5.0, 5.0, 5.0));
@@ -70,24 +70,24 @@ void ShaderWidget::initializeGL()
     mProgram.setUniformValue("trianglein[2].v3", QVector3D(5.0, 5.0, -5.0));
     mProgram.setUniformValue("trianglein[2].color", QVector3D(1.0, 1.0, 0.0));
     mProgram.setUniformValue("trianglein[3].v1", QVector3D(5.0, -5.0, -5.0));
-    mProgram.setUniformValue("trianglein[3].v2", QVector3D(5.0, 5.0, 5.0));
-    mProgram.setUniformValue("trianglein[3].v3", QVector3D(5.0, -5.0, 5.0));
+    mProgram.setUniformValue("trianglein[3].v2", QVector3D(5.0, -5.0, 5.0));
+    mProgram.setUniformValue("trianglein[3].v3", QVector3D(5.0, 5.0, 5.0));
     mProgram.setUniformValue("trianglein[3].color", QVector3D(1.0, 1.0, 0.0));
 
     // front
     mProgram.setUniformValue("trianglein[4].v1", QVector3D(-5.0, -5.0, 5.0));
-    mProgram.setUniformValue("trianglein[4].v2", QVector3D(5.0, -5.0, 5.0));
-    mProgram.setUniformValue("trianglein[4].v3", QVector3D(-5.0, 5.0, 5.0));
+    mProgram.setUniformValue("trianglein[4].v2", QVector3D(-5.0, 5.0, 5.0));
+    mProgram.setUniformValue("trianglein[4].v3", QVector3D(5.0, -5.0, 5.0));
     mProgram.setUniformValue("trianglein[4].color", QVector3D(1.0, 1.0, 0.0));
     mProgram.setUniformValue("trianglein[5].v1", QVector3D(5.0, 5.0, 5.0));
-    mProgram.setUniformValue("trianglein[5].v2", QVector3D(-5.0, 5.0, 5.0));
-    mProgram.setUniformValue("trianglein[5].v3", QVector3D(5.0, -5.0, 5.0));
+    mProgram.setUniformValue("trianglein[5].v2", QVector3D(5.0, -5.0, 5.0));
+    mProgram.setUniformValue("trianglein[5].v3", QVector3D(-5.0, 5.0, 5.0));
     mProgram.setUniformValue("trianglein[5].color", QVector3D(1.0, 1.0, 0.0));
 
     // up
     mProgram.setUniformValue("trianglein[6].v1", QVector3D(-5.0, 5.0, -5.0));
-    mProgram.setUniformValue("trianglein[6].v2", QVector3D(-5.0, 5.0, 5.0));
-    mProgram.setUniformValue("trianglein[6].v3", QVector3D(5.0, 5.0, -5.0));
+    mProgram.setUniformValue("trianglein[6].v2", QVector3D(5.0, 5.0, -5.0));
+    mProgram.setUniformValue("trianglein[6].v3", QVector3D(-5.0, 5.0, 5.0));
     mProgram.setUniformValue("trianglein[6].color", QVector3D(0.0, 1.0, 0.0));
     mProgram.setUniformValue("trianglein[7].v1", QVector3D(5.0, 5.0, 5.0));
     mProgram.setUniformValue("trianglein[7].v2", QVector3D(-5.0, 5.0, 5.0));
@@ -100,8 +100,8 @@ void ShaderWidget::initializeGL()
     mProgram.setUniformValue("trianglein[8].v3", QVector3D(5.0, -5.0, -5.0));
     mProgram.setUniformValue("trianglein[8].color", QVector3D(0.0, 1.0, 0.0));
     mProgram.setUniformValue("trianglein[9].v1", QVector3D(5.0, -5.0, 5.0));
-    mProgram.setUniformValue("trianglein[9].v2", QVector3D(-5.0, -5.0, 5.0));
-    mProgram.setUniformValue("trianglein[9].v3", QVector3D(5.0, -5.0, -5.0));
+    mProgram.setUniformValue("trianglein[9].v2", QVector3D(5.0, -5.0, -5.0));
+    mProgram.setUniformValue("trianglein[9].v3", QVector3D(-5.0, -5.0, 5.0));
     mProgram.setUniformValue("trianglein[9].color", QVector3D(0.0, 1.0, 0.0));
 
     // tetr

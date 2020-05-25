@@ -49,8 +49,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="shaderwidget.h">
+    <QtMoc Include="shaderwidget.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
+    </QtMoc>
   </ItemGroup>
 </Project>

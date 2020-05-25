@@ -92,9 +92,9 @@ bool IntersectSphere (Sphere sphere, Ray ray, float start, float final, out floa
 bool IntersectTriangle(Ray ray, vec3 v1, vec3 v2, vec3 v3, out float time)
 {
 	time = -1;
-	vec3 A = v2 - v1;
-	vec3 B = v3 - v1; 
-	vec3 normal = cross(A, B);
+	vec3 edge1 = v2 - v1;
+	vec3 edge2 = v3 - v1; 
+	vec3 normal = cross(edge1, edge2);
 	float dotRayDir = dot(normal, ray.direction);
 	
 	if (abs(dotRayDir) < 0.001)
@@ -106,27 +106,25 @@ bool IntersectTriangle(Ray ray, vec3 v1, vec3 v2, vec3 v3, out float time)
 	if (t < 0) 
 		return false; 
 		
-	vec3 P = ray.origin + t * ray.direction;
-	vec3 C;
-	vec3 edge1 = v2 - v1;
-	vec3 VP1 = P - v1;
-	C = cross(edge1, VP1);
+	vec3 p = ray.origin + t * ray.direction;
+	vec3 pv1 = p - v1;
+	vec3 c = cross(edge1, pv1);
 	
-	if (dot(normal, C) < 0)
+	if (dot(normal, c) < 0)
 		return false;
 	
-	vec3 edge2 = v3 - v2;
-	vec3 VP2 = P - v2;
-	C = cross(edge2, VP2);
+	edge2 = v3 - v2;
+	vec3 pv2 = p - v2;
+	c = cross(edge2, pv2);
 	
-	if (dot(normal, C) < 0)
+	if (dot(normal, c) < 0)
 		return false;
 	
 	vec3 edge3 = v1 - v3;
-	vec3 VP3 = P - v3;
-	C = cross(edge3, VP3);
+	vec3 pv3 = p - v3;
+	c = cross(edge3, pv3);
 	
-	if (dot(normal, C) < 0)
+	if (dot(normal, c) < 0)
 		return false;
 		
 	time = t;
